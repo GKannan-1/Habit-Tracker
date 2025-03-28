@@ -3,8 +3,7 @@ dependencies:
   - python = 3.13
   - django = 5.1.*
   - conda-forge::selenium = 4.*
-  - conda-forge::django-stubs-ext
   - pip
   - pip:
-    - django-types
-  - conda-forge::types-requests
+    - "django-stubs[compatible]" 
+    - mypy

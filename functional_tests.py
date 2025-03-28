@@ -17,13 +17,13 @@ class Support(Protocol):
 
 
 class NewVisitorTest(LiveServerTestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.browser = get_browser()
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.browser.quit()
 
-    def wait_for_row_in_list_table(self, row_text: str, contains: bool = True):
+    def wait_for_row_in_list_table(self, row_text: str, contains: bool = True) -> None:
         start_time: float = time.time()
         while True:
             try:
@@ -42,7 +42,7 @@ class NewVisitorTest(LiveServerTestCase):
                     raise
                 time.sleep(0.5)
 
-    def test_can_start_a_habit_tracker(self):
+    def test_can_start_a_habit_tracker(self) -> None:
         # Edith has heard about a cool new online habit tracker app
         # She goes to check out its home page
         self.browser.get(self.live_server_url)

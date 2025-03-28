@@ -20,6 +20,6 @@ from django.urls.resolvers import URLResolver
 
 urlpatterns: list[URLResolver] = [
     path("habits/", include("habit_todo_lists.urls")),
-    path("login/", include("login.urls")),
+    path("", include("login.urls")),
     path('admin/', admin.site.urls),
 ]

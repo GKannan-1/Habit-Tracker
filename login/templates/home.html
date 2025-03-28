@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>Login Page</title>
+    </head>
+    <body>
+        <h1>Habit Tracker</h1>
+        <form method="POST">
+            {% csrf_token %}
+          
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+          
+            <button type="button" formaction = "/login/existing_user">Log In</button>
+            <button type="button" formaction = "/login/new_user">Register</button>
+          </form>
+    </body>
+</html>
