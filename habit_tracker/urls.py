@@ -19,6 +19,7 @@ from django.urls import include, path
 from django.urls.resolvers import URLResolver
 
 urlpatterns: list[URLResolver] = [
-    path("", include("habit_todo_lists.urls")),
+    path("habits/", include("habit_todo_lists.urls")),
+    path("login/", include("login.urls")),
     path('admin/', admin.site.urls),
 ]

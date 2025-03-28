@@ -62,8 +62,12 @@ class NewVisitorTest(LiveServerTestCase):
         input_box.send_keys("Do 30 minutes of exercise daily")
 
         # When she hits enter, the page updates, and now the page lists
-        # "1. Do 30 minutes of exercise daily" into a text box
+        # "1. Do 30 minutes of exercise daily" as an item into a table
         input_box.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table("1. Do 30 minutes of exercise daily")
+
+        # There is still a textbox inviting her to add another item.
+        # She adds "Do 20 minutes of meditation every day"
+        input_box.send_keys("Do 20 minutes of meditation every day")
 
         assert False, "Complete the Functional Tests"
