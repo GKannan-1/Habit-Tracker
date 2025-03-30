@@ -1,5 +1,5 @@
 """
-URL configuration for habit_tracker project.
+URL configuration for super_habit_tracker project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -15,11 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
-from django.urls.resolvers import URLResolver
+from django.urls import path
 
-urlpatterns: list[URLResolver] = [
-    path("habits/", include("habit_todo_lists.urls")),
-    path("", include("login.urls")),
-    path('admin/', admin.site.urls),
+urlpatterns = [
+    path("admin/", admin.site.urls),
 ]

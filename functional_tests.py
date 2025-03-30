@@ -11,9 +11,11 @@ MAX_WAIT = 5
 
 
 class Support(Protocol):
-    def get_attribute(self, name: str) -> str | None: ...
-    def find_elements(self, by: str, value: str |
-                      None = None) -> list[WebElement]: ...
+    def get_attribute(self, name: str) -> str | None:
+        ...
+
+    def find_elements(self, by: str, value: str | None = None) -> list[WebElement]:
+        ...
 
 
 class NewVisitorTest(LiveServerTestCase):
@@ -27,10 +29,10 @@ class NewVisitorTest(LiveServerTestCase):
         start_time: float = time.time()
         while True:
             try:
-                table: WebElement = self.browser.find_element(
-                    By.ID, "id_list_table")
-                rows: list[WebElement] = cast(
-                    Support, table).find_elements(By.TAG_NAME, "tr")
+                table: WebElement = self.browser.find_element(By.ID, "id_list_table")
+                rows: list[WebElement] = cast(Support, table).find_elements(
+                    By.TAG_NAME, "tr"
+                )
 
                 if contains:
                     self.assertIn(row_text, [row.text for row in rows])
@@ -48,15 +50,23 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.get(self.live_server_url)
 
         # She notices the page title and header mention Habit Tracker
-        self.assertIn("Habit Tracker", self.browser.title,)
+        self.assertIn(
+            "Habit Tracker",
+            self.browser.title,
+        )
 
         header_text: WebElement = self.browser.find_element(By.TAG_NAME, "h1")
-        self.assertIn("Habit Tracker", header_text.text,)
+        self.assertIn(
+            "Habit Tracker",
+            header_text.text,
+        )
 
         # She is invited to enter a habit straight away
         input_box: WebElement = self.browser.find_element(By.ID, "id_new_item")
-        self.assertEqual(cast(Support, input_box).get_attribute(
-            "placeholder"), "Enter a habit you wish to track")
+        self.assertEqual(
+            cast(Support, input_box).get_attribute("placeholder"),
+            "Enter a habit you wish to track",
+        )
 
         # She types "Do 30 minutes of exercise daily" into a text box
         input_box.send_keys("Do 30 minutes of exercise daily")
