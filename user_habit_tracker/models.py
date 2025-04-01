@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class HabitTrackerUser(models.Model):
-    author = models.OneToOneField(
+    author: models.OneToOneField[User] = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="tracker")
 
     def __str__(self) -> str:
@@ -15,7 +15,7 @@ class HabitTrackerUser(models.Model):
 class Habit(models.Model):
     title = models.CharField(default="", max_length=200)
     text = models.TextField(default="")
-    user = models.ForeignKey(
+    owner: models.ForeignKey[HabitTrackerUser] = models.ForeignKey(
         HabitTrackerUser, default=None, on_delete=models.CASCADE,)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

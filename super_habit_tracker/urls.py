@@ -14,9 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from django.urls.resolvers import URLResolver
+from rest_framework.routers import DefaultRouter
+from user_habit_tracker.views import HabitViewSet
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
+router = DefaultRouter()
+# r prefix tells python to treat backlashes in string as raw characters and not an escape line character
+router.register(r"habits", HabitViewSet)
+
+# URLResolver used for include, URLPattern used for explicit mapping to view function
+# router generates all default urls for HabitViewSet
+urlpatterns: list[URLResolver] = [
+    path("", include(router.urls))
 ]
