@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 
 
 class HabitTrackerUser(models.Model):
-    author = models.OneToOneField(User, on_delete=models.CASCADE,)
+    author = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name="tracker")
 
     def __str__(self) -> str:
         return f"{self.author.username}'s Tracker"
