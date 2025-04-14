@@ -6,5 +6,5 @@ dependencies:
   - conda-forge::djangorestframework
   - pip
   - pip:
-    - "django-stubs[compatible]" 
+    - "django-stubs[compatible-mypy]"
     - mypy

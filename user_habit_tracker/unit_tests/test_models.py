@@ -1,3 +1,5 @@
+"""File that tests the classes Habit and HabitTrackerUser classes of the file models.py"""
+
 from django.test import TestCase
 from django.db.models import QuerySet
 from django.contrib.auth.models import User
@@ -6,6 +8,9 @@ from ..models import Habit, HabitTrackerUser
 
 class HabitModelTestCase(TestCase):
     def setUp(self) -> None:
+        """
+        Hook method for setting up the test fixture before exercising it.
+        """
         user1: User = User.objects.create_user(
             username="testuser",
             password="password",

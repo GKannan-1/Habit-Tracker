@@ -1,20 +1,25 @@
+"""File that tests the classes UserSerializer and HabitSerializer of the file serializers.py"""
+
 from django.test import TestCase
 from django.contrib.auth.models import User
 from ..models import HabitTrackerUser, Habit
 from ..serializers import UserSerializer, HabitSerializer
-from rest_framework.serializers import Serializer
+from rest_framework.serializers import ModelSerializer
 from django.db.models import Model
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from io import BytesIO
 from typing import Any, Type, TypeVar
 
-S = TypeVar("S", bound=Serializer)
 M = TypeVar("M", bound=Model)
+S = TypeVar("S", bound=ModelSerializer[Any])
 
 
 class HabitSerializerTestCase(TestCase):
     def setUp(self) -> None:
+        """
+        Hook method for setting up the test fixture before exercising it.
+        """
         user1: User = User.objects.create_user(
             username="testuser",
             password="password",
@@ -42,6 +47,13 @@ class HabitSerializerTestCase(TestCase):
         self.parser = JSONParser()
 
     def serialize_data_integrity(self, serializer_class: Type[S], instance: M) -> None:
+        """
+        Takes in a serializer class and an instance and serializes it, comparing the serializer's data parameter with
+        the data parsed from the serializer through the JSON stream, raising an error if the data is different.
+        :param serializer_class: Class that serializes the object.
+        :param instance: Object that is being serialized.
+        :raises AssertionError: Raised if serializer's data is different then expected.
+        """
         serializer: S = serializer_class(instance)
 
         serializer_json_data: bytes = self.renderer.render(serializer.data)
@@ -67,3 +79,25 @@ class HabitSerializerTestCase(TestCase):
                 pk=self.user_1_second_habit_id,
             ),
         )
+
+    def test_user_serializer_structure(self) -> None:
+        serializer = UserSerializer(self.habit_tracker_user_1)
+        serializer_dict: dict[str, Any] = {
+            "id": serializer.data["id"],
+            "username": serializer.data["username"],
+        }
+
+        self.assertDictEqual(serializer.data, serializer_dict)
+
+    def test_habit_serializer_structure(self) -> None:
+        serializer = HabitSerializer(Habit.objects.get(pk=self.user_1_first_habit_id))
+        serializer_dict: dict[str, Any] = {
+            "id": serializer.data["id"],
+            "title": serializer.data["title"],
+            "text": serializer.data["text"],
+            "created_at": serializer.data["created_at"],
+            "updated_at": serializer.data["updated_at"],
+            "owner": serializer.data["owner"],
+        }
+
+        self.assertDictEqual(serializer.data, serializer_dict)
