@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "user_habit_tracker",
     "django_stubs_ext",
     "django_extensions",
-    "rest_framework.authtoken",
 ]
 
 MIDDLEWARE = [
