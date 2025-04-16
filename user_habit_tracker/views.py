@@ -37,3 +37,6 @@ class HabitViewSet(viewsets.ModelViewSet[Habit]):
         assert self.request.user.is_authenticated
         owner: HabitTrackerUser = self.request.user.tracker
         cast(HabitSerializer, serializer).save(owner=owner)
+
+
+# TODO: Create view functions for registering users or logging in users (can use separate view file or same), and then adjust the router file accordingly.
