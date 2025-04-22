@@ -28,4 +28,5 @@ router.register(r"habits", HabitViewSet, basename="habits")
 # router generates all default urls for HabitViewSet
 urlpatterns: list[URLResolver] = [
     path("", include(router.urls)),
+    path("auth/", include("accounts.urls")),
 ]

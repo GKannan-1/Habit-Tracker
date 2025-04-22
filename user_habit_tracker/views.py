@@ -3,6 +3,7 @@
 from django.db.models import QuerySet
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.serializers import BaseSerializer
 
 from .models import Habit, HabitTrackerUser
@@ -13,6 +14,7 @@ from typing import cast
 
 class HabitViewSet(viewsets.ModelViewSet[Habit]):
     serializer_class = HabitSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated]
     # self.request.user means the instance of the django User class associated with the request.
     # The request doesn't have the user information in it, but django saves which user is

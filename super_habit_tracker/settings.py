@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "user_habit_tracker",
     "django_stubs_ext",
     "django_extensions",
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -141,3 +142,13 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
+
+CSRF_COOKIE_SAMESITE = "Strict"
+SESSION_COOKIE_SAMESITE = "Strict"
+# Note, CSRF_COOKIE_HTTPONLY makes the csrf_cookie unreadable by client side code. Must send csrf token in headers.
+# Luckily django does that for you
+
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
+# Most Common Trusted Origin for React App
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]

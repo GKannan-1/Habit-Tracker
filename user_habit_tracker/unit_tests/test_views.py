@@ -1,6 +1,6 @@
 """File that tests the HabitViewSet class of the file views.py"""
 
-from rest_framework.test import APIClient, APITestCase
+from rest_framework.test import APITestCase
 from rest_framework.response import Response
 from django.utils.timezone import localtime
 import datetime
@@ -10,7 +10,6 @@ from ..models import Habit, HabitTrackerUser
 
 class HabitViewSetTestCase(APITestCase):
     def setUp(self) -> None:
-        self.client = APIClient()
         self.user: User = User.objects.create_user(
             username="<USER>", password="<PASSWORD>"
         )
@@ -41,9 +40,11 @@ class HabitViewSetTestCase(APITestCase):
         self.assertEqual(Habit.objects.count(), 1)
 
         # Habit object title, text, and owner parameters are equal to what was sent out in self.habit_data request
-        self.assertEqual(Habit.objects.first().title, habit_data["title"])
-        self.assertEqual(Habit.objects.first().text, habit_data["text"])
-        self.assertEqual(Habit.objects.first().owner.author, self.user)
+        first_habit: Habit | None = Habit.objects.first()
+        assert first_habit is not None, "Habit object does not exist"
+        self.assertEqual(first_habit.title, habit_data["title"])
+        self.assertEqual(first_habit.text, habit_data["text"])
+        self.assertEqual(first_habit.owner.author, self.user)
 
     def test_list_habits(self) -> None:
         habit: Habit = Habit.objects.create(
