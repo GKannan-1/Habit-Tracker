@@ -150,5 +150,5 @@ SESSION_COOKIE_SAMESITE = "Strict"
 
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
-# Most Common Trusted Origin for React App
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
+# Most Common Trusted Origin for Vite domain
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173"]
