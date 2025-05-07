@@ -24,7 +24,7 @@ class HabitViewSetTestCase(APITestCase):
             "text": "Do Something Daily",
         }
         response: Response = self.client.post(
-            path="/habits/",
+            path="/api/habits/",
             data=habit_data,
             format="json",
         )
@@ -52,7 +52,7 @@ class HabitViewSetTestCase(APITestCase):
             text="Check it",
             owner=HabitTrackerUser.objects.get(author=self.user),
         )
-        response: Response = self.client.get("/habits/")
+        response: Response = self.client.get("/api/habits/")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
@@ -63,7 +63,7 @@ class HabitViewSetTestCase(APITestCase):
             text="Check it",
             owner=HabitTrackerUser.objects.get(author=self.user),
         )
-        response: Response = self.client.get(f"/habits/{habit.id}/")
+        response: Response = self.client.get(f"/api/habits/{habit.id}/")
 
         self.assertEqual(response.status_code, 200)
 
@@ -92,7 +92,7 @@ class HabitViewSetTestCase(APITestCase):
             owner=HabitTrackerUser.objects.get(author=self.user),
         )
         response: Response = self.client.put(
-            f"/habits/{habit.id}/",
+            f"/api/habits/{habit.id}/",
             data={
                 "title": "New Title",
                 "text": "Updated Text",
@@ -116,7 +116,7 @@ class HabitViewSetTestCase(APITestCase):
             owner=HabitTrackerUser.objects.get(author=self.user),
         )
         self.assertEqual(Habit.objects.count(), 1)
-        response: Response = self.client.delete(f"/habits/{habit.id}/")
+        response: Response = self.client.delete(f"/api/habits/{habit.id}/")
 
         self.assertEqual(response.status_code, 204)
         self.assertEqual(Habit.objects.count(), 0)

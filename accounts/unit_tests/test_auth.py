@@ -100,7 +100,7 @@ class AuthTestCase(APITestCase):
         assert csrf_token is not None, "CSRF token not found in response"
 
         csrf_invalid_response: Response = self.csrf_client.post(
-            path="/habits/",
+            path="/api/habits/",
             data={
                 "title": "Habit",
                 "text": "Do Something Daily",
@@ -112,7 +112,7 @@ class AuthTestCase(APITestCase):
         self.assertEqual(Habit.objects.count(), 0)
 
         csrf_valid_response: Response = self.csrf_client.post(
-            path="/habits/",
+            path="/api/habits/",
             data={
                 "title": "Habit",
                 "text": "Do Something Daily",

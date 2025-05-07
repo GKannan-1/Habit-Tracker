@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.contrib import admin
 from django.urls import include, path
 from django.urls.resolvers import URLResolver
 from rest_framework.routers import DefaultRouter
@@ -27,6 +28,14 @@ router.register(r"habits", HabitViewSet, basename="habits")
 # URLResolver used for include, URLPattern used for explicit mapping to view function
 # router generates all default urls for HabitViewSet
 urlpatterns: list[URLResolver] = [
-    path("", include(router.urls)),
-    path("auth/", include("accounts.urls")),
+    path("admin/", admin.site.urls),
+    path(
+        "api/",
+        include(
+            [
+                path("", include(router.urls)),
+                path("", include("accounts.urls")),
+            ]
+        ),
+    ),
 ]
