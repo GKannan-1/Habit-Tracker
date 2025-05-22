@@ -43,7 +43,7 @@ class AuthTestCase(APITestCase):
 
         # Check SameSite settings
         self.assertEqual(csrf_cookie["samesite"].lower(), "strict")
-        self.assertEqual(csrf_cookie["httponly"], True)
+        self.assertEqual(csrf_cookie["httponly"], "")
 
     def test_login_view(self) -> None:
 

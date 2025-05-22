@@ -150,7 +150,7 @@ SESSION_COOKIE_SAMESITE = "Strict"
 # Note, CSRF_COOKIE_HTTPONLY makes the csrf_cookie unreadable by client side code. Must send csrf token in headers.
 # Luckily django does that for you
 
-CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False  # CSRF_COOKIE needs to be visible to frontend
 SESSION_COOKIE_HTTPONLY = True
 # Most Common Trusted Origin for Vite domain
 CSRF_TRUSTED_ORIGINS = [
@@ -160,3 +160,4 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
+CORS_ALLOW_CREDENTIALS = True
