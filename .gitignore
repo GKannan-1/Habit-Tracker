@@ -1,6 +1,19 @@
-db.sqlite3
-__pycache__
-*.pyc
-.venv
 .python-version
+.tool-versions
+
+# Backend specific
+Backend/__pycache__/
+Backend/*.pyc
+Backend/.venv
+Backend/.env
+Backend/db.sqlite3
+
+# Frontend specific
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# General
+.DS_Store
+*.log
 .idea
